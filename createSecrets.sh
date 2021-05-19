@@ -10,7 +10,7 @@ read  key value
 do
    echo "$key" "$value"
    # Generate plain text file containing secrets
-   echo -n "$value" > "$secretDir/$key.txt"
+   printf "$value" > "$secretDir/$key.txt"
    kubectl delete secret "$key-secret"
    kubectl create secret generic "$key-secret" --from-file="$secretDir/$key.txt"
    kubectl get secret "$key-secret" -o yaml > "$secretDir/$key-secret-base64.yaml"
